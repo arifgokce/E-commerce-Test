@@ -10,11 +10,11 @@ namespace Hepsiburada.Business.Interface.Operation
 {
     public class OrderOperation : IOrderOperation
     {
-        private readonly IProductService _productService;
+        private readonly IProductOperation _productOperation;
         private readonly IOrderService _orderService;
-        public OrderOperation(IProductService productService, IOrderService orderService)
+        public OrderOperation(IProductOperation productOperation, IOrderService orderService)
         {
-            _productService = productService;
+            _productOperation = productOperation;
             _orderService = orderService;
         }
         public Response<string> CreateOrder(CreateOrderModel orderCreate)
@@ -30,7 +30,7 @@ namespace Hepsiburada.Business.Interface.Operation
             if (order.ProductId > 0)
             {
                 //To-do TransactionScope
-                _productService.ProductUpdate(product);
+                _productOperation.ProductUpdate(product);
                 return new Response<string>
                 {
                     Message = "ok",
@@ -47,29 +47,29 @@ namespace Hepsiburada.Business.Interface.Operation
         }
         private Product GetProductController(string ProductCode, int Quantity)
         {
-            Product product = _productService.GetProductByCode(ProductCode);
-            if (product == null)
+            Response<Product> pResult = _productOperation.GetProductByCode(ProductCode);
+            if (pResult == null || !pResult.Successful)
             {
                 throw new Exception("Ürün bulunamadı")
                 {
                     HResult = 2
                 };
             }
-            if (product.Stock <= 0)
+            if (pResult.Data.Stock <= 0)
             {
                 throw new Exception("Ürün stokları tükenmiştir.")
                 {
                     HResult = 3
                 };
             }
-            if (Quantity > product.Stock)
+            if (Quantity > pResult.Data.Stock)
             {
-                throw new Exception($"Ürün stokları sipariş miktarından azdır. En fazla {product.Stock} adet ürün siparişi verebilirsiniz.")
+                throw new Exception($"Ürün stokları sipariş miktarından azdır. En fazla {pResult.Data.Stock} adet ürün siparişi verebilirsiniz.")
                 {
                     HResult = 4
                 };
             }
-            return product;
+            return pResult.Data;
         }
 
 

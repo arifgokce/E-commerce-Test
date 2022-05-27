@@ -107,7 +107,7 @@ namespace Hepsiburada.Business.Operation
                     {
                         return;
                     }
-                 
+
                     decimal maxDiscountAmount = ((product.Price * campaign.ManipulationLimit) / 100);
                     decimal unitDiscount = maxDiscountAmount / campaign.Duration;
                     int remainingTime = EndDate.Hour - DateTime.Now.AddHours(increaseTime.IncreaseTimeValue).Hour;
@@ -117,6 +117,11 @@ namespace Hepsiburada.Business.Operation
 
             }
 
+        }
+
+        public void ProductUpdate(Product product)
+        {
+            _productService.ProductUpdate(product);
         }
     }
 }

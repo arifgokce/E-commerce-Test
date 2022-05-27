@@ -9,5 +9,6 @@ namespace Hepsiburada.Business.Interface.Operation
         Product GetProduct(int ProductId);
         Response<string> CreateProduct(CreateProductModel productRequest);
         Response<Product>  GetProductByCode(string ProductCode);
+        void ProductUpdate(Product product);
     }
 }

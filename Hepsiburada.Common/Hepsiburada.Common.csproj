@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Hepsiburada.Entities\Hepsiburada.Entities.csproj" />
+    <ProjectReference Include="..\Hepsiburada.Entities\Hepsiburada.Entities.csproj" />
   </ItemGroup>
 
 </Project>

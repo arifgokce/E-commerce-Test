@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hepsiburada.Api\Hepsiburada.Common\Hepsiburada.Common.csproj" />
+    <ProjectReference Include="..\Hepsiburada.Common\Hepsiburada.Common.csproj" />
     <ProjectReference Include="..\Hepsiburada.Entities\Hepsiburada.Entities.csproj" />
   </ItemGroup>
 
